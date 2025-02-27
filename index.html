@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QuantScope provides advanced FIX protocol analysis tools and custom development services for financial institutions, brokers, and trading firms.">
+    <meta name="keywords" content="FIX protocol, trading software, financial trading, FIX log analysis, FIX monitoring, trading tools">
+    <meta name="author" content="QuantScope">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="QuantScope - Advanced FIX Protocol Analysis Tools">
+    <meta property="og:description" content="Tools and services for financial trading communications, helping institutions optimize operations and reduce trade failures.">
+    <meta property="og:url" content="https://quantscopeapp.com">
+    <!-- <meta property="og:image" content="https://quantscopeapp.com/assets/og-image.jpg"> -->
+    
+    <title>QuantScope - Financial Trading Solutions</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #22c55e;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            margin-top: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/hero-bg.svg') no-repeat;
+            background-size: cover;
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero-buttons .primary-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .hero-buttons .primary-button:hover {
+            background-color: var(--primary-light);
+        }
+
+        .hero-buttons .secondary-button {
+            background-color: transparent;
+            color: var(--primary);
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid var(--primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .hero-buttons .secondary-button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 6rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Features */
+        .features {
+            background-color: #fff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+        }
+
+        /* Product Showcase */
+        .product-showcase {
+            background-color: var(--light);
+        }
+
+        .product-container {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .product-image {
+            flex: 1;
+        }
+
+        .product-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-details {
+            flex: 1;
+        }
+
+        .product-details h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .product-details ul {
+            margin-bottom: 2rem;
+            list-style: none;
+        }
+
+        .product-details li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .product-details li::before {
+            content: "✓";
+            color: var(--accent);
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        /* Services */
+        .services {
+            background-color: #fff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            padding: 2rem;
+            background-color: var(--light);
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .service-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--light);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap:.5rem;
+        }
+
+        .testimonial-card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .author-details h4 {
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .author-details p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Call to Action */
+        .cta {
+            background-color: var(--primary);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .cta h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .cta-primary {
+            background-color: white;
+            color: var(--primary);
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .cta-primary:hover {
+            background-color: var(--light-gray);
+        }
+
+        .cta-secondary {
+            background-color: transparent;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid white;
+            transition: background-color 0.3s;
+        }
+
+        .cta-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background-color: #fff;
+            padding: 5rem 0;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-form-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .contact-form-button svg {
+            margin-left: 8px;
+        }
+
+        .contact-form-button:hover {
+            background-color: var(--primary-light);
+        }
+
+    /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        .footer-about p {
+            color: var(--light-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .github-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .github-button:hover {
+            background-color: #555;
+        }
+
+        .footer-links h4, .footer-contact h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-contact p {
+            color: var(--light-gray);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact p i {
+            margin-right: 0.75rem;
+            color: var(--accent);
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero-container, .product-container {
+                flex-direction: column;
+            }
+
+            .hero-image {
+                margin-top: 3rem;
+            }
+
+            .product-container {
+                gap: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Quant<span>Scope</span></a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#products">Products</a>
+                <a href="#services">Services</a>
+                <a href="https://github.com/aquibsayyed9/quantscope/" target="_blank" class="cta-button">⭐ GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Advanced <span>Financial Trading</span> Solutions</h1>
+                <p>QuantScope helps financial institutions, brokers, and trading firms gain deeper insights into their FIX messages, ensuring smooth trade operations with cutting-edge technology.</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="primary-button">Explore Products</a>
+                    <a href="https://github.com/aquibsayyed9/quantscope/" target="_blank" class="secondary-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: middle;"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="quantscope.gif" alt="QuantScope App Demo">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose QuantScope?</h2>
+                <p>Our suite of tools and services solves critical challenges in financial trading communications.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Advanced Visualization</h3>
+                    <p>Transform complex FIX messages into intuitive visualizations, making it easy to spot issues and analyze patterns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-Time Monitoring</h3>
+                    <p>Detect issues as they happen with our real-time monitoring system, minimizing trade failures and reducing latency.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>Simplified Debugging</h3>
+                    <p>Quickly identify and resolve rejected orders, errors, and trade issues with our powerful debugging tools.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Seamless Integration</h3>
+                    <p>Easily integrate with your existing trading infrastructure with our lightweight solution requiring minimal setup.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Comprehensive Analytics</h3>
+                    <p>Gain deeper insights into your trading operations with advanced analytics and customizable reports.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Compliant</h3>
+                    <p>Meet regulatory requirements with our secure, compliant solutions designed specifically for financial institutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase -->
+    <section class="product-showcase" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Solutions</h2>
+                <p>Tailored products to enhance your trading operations</p>
+            </div>
+            <div class="product-container">
+                <div class="product-image">
+                    <img src="quantscope_dashboard.jpg" alt="QuantScopeApp Dashboard">
+                </div>
+                <div class="product-details">
+                    <h3>QuantScopeApp</h3>
+                    <p>A simple yet powerful tool for monitoring, analyzing, and troubleshooting FIX protocol messages.</p>
+                    <ul>
+                        <li>Visualizes FIX Messages in a structured format</li>
+                        <li>Real-Time Log Parsing for immediate analysis</li>
+                        <li>Advanced Message Filtering & Search capabilities</li>
+                        <li>Lightweight with minimal infrastructure requirements</li>
+                        <li>Purpose-built for brokers and trading firms</li>
+                    </ul>
+                    <a href="#contact" class="primary-button">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>Beyond software, we provide comprehensive solutions to optimize your trading infrastructure</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Custom Development</h3>
+                    <p>Tailored solutions designed specifically for your trading requirements, integrating seamlessly with your existing systems.</p>
+                    <a href="#contact" class="secondary-button">Inquire Now</a>
+                </div>
+                <div class="service-card">
+                    <h3>FIX Protocol Consulting</h3>
+                    <p>Expert guidance on FIX protocol implementation, optimization, and troubleshooting to ensure smooth trading operations.</p>
+                    <a href="#contact" class="secondary-button">Inquire Now</a>
+                </div>
+                <div class="service-card">
+                    <h3>Trading System Integration</h3>
+                    <p>Seamless integration services to connect our solutions with your existing trading platforms and infrastructure.</p>
+                    <a href="#contact" class="secondary-button">Inquire Now</a>
+                </div>
+                <div class="service-card">
+                    <h3>Managed Services</h3>
+                    <p>Ongoing support, monitoring, and management of your trading systems, ensuring optimal performance and minimal downtime.</p>
+                    <a href="#contact" class="secondary-button">Inquire Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Clients Say</h2>
+                <p>Trusted by leading financial institutions and trading firms</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "QuantScopeApp has revolutionized how we monitor and troubleshoot our FIX messages. We've reduced trade failures by 75% since implementation."
+                    </div>
+                    <div class="testimonial-author">
+                        <!-- <img src="/api/placeholder/50/50" alt="John D."> -->
+                        <div class="author-details">
+                            <h4>John D.</h4>
+                            <p>CTO, Global Trading Firm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The custom development team at QuantScope delivered exactly what we needed, on time and within budget. Their expertise in financial trading systems is unmatched."
+                    </div>
+                    <div class="testimonial-author">
+                        <!-- <img src="/api/placeholder/50/50" alt="Sarah M."> -->
+                        <div class="author-details">
+                            <h4>Sarah M.</h4>
+                            <p>Head of Operations, Investment Bank</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Real-time monitoring has been a game-changer for our trading desk. Issues that used to take hours to identify are now spotted and resolved within minutes."
+                    </div>
+                    <div class="testimonial-author">
+                        <!-- <img src="/api/placeholder/50/50" alt="Michael T."> -->
+                        <div class="author-details">
+                            <h4>Michael T.</h4>
+                            <p>Trading Desk Manager, Broker-Dealer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get in Touch</h2>
+                <p>Have questions or ready to get started? Reach out to our team.</p>
+            </div>
+            <div class="form-container">
+                <a href="https://forms.gle/6qtCwcFhM5rbky1z8" target="_blank" class="contact-form-button">
+                    <span>Contact Us</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h3>Ready to Transform Your Trading Operations?</h3>
+            <p>Contact us today to learn how QuantScope can help you optimize your FIX messaging, reduce trade failures, and improve overall trading efficiency.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-primary">Get Started</a>
+                <a href="https://github.com/aquibsayyed9/quantscope/tree/main" target="_blank" class="cta-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; vertical-align: middle;"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    GitHub Project
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="#" class="footer-logo">Quant<span>Scope</span></a>
+                <p>Advanced solutions for financial trading communications, helping institutions optimize their operations and reduce trade failures.</p>
+                <a href="https://github.com/aquibsayyed9/quantscope/tree/main" target="_blank" class="github-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; vertical-align: middle;"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    Star on GitHub
+                </a>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="https://github.com/aquibsayyed9/quantscope/tree/main/README.md" target="_blank">Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Solutions</h4>
+                <ul>
+                    <li><a href="#">QuantScopeApp</a></li>
+                    <li><a href="#">FIX Monitoring</a></li>
+                    <li><a href="#">Custom Development</a></li>
+                    <li><a href="#">Consulting Services</a></li>
+                    <li><a href="#">Training & Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <!-- <p><i>📧</i> info@quantscope.com</p> -->
+                <!-- <p><i>📱</i> +1 (555) 123-4567</p> -->
+                <p><i>📍</i> Abu Dhabi, UAE</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 QuantScope. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
