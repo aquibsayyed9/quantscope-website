@@ -468,30 +468,77 @@
         .form-container {
             max-width: 600px;
             margin: 0 auto;
-            text-align: center;
         }
 
-        .contact-form-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        .contact-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-full-width {
+            grid-column: span 2;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit {
             background-color: var(--primary);
             color: white;
-            padding: 1rem 2rem;
+            padding: 0.75rem 2rem;
+            border: none;
             border-radius: 6px;
             font-weight: 500;
-            text-decoration: none;
+            font-size: 1rem;
+            cursor: pointer;
             transition: background-color 0.3s;
-            font-size: 1.1rem;
-            margin-top: 1rem;
         }
 
-        .contact-form-button svg {
-            margin-left: 8px;
-        }
-
-        .contact-form-button:hover {
+        .form-submit:hover {
             background-color: var(--primary-light);
+        }
+
+        .thank-you-message {
+            display: none;
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 500;
         }
 
     /* Footer */
@@ -793,6 +840,22 @@
     </section>
 
     <!-- Contact Form Section -->
+    <!-- <section class="contact-form" id="contact"> -->
+        <!-- <div class="container"> -->
+            <!-- <div class="section-title"> -->
+                <!-- <h2>Get in Touch</h2> -->
+                <!-- <p>Have questions or ready to get started? Reach out to our team.</p> -->
+            <!-- </div> -->
+            <!-- <div class="form-container"> -->
+                <!-- <a href="https://forms.gle/6qtCwcFhM5rbky1z8" target="_blank" class="contact-form-button"> -->
+                    <!-- <span>Contact Us</span> -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> -->
+                <!-- </a> -->
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </section> -->
+	
+	<!-- Contact Form Section -->
     <section class="contact-form" id="contact">
         <div class="container">
             <div class="section-title">
@@ -800,13 +863,46 @@
                 <p>Have questions or ready to get started? Reach out to our team.</p>
             </div>
             <div class="form-container">
-                <a href="https://forms.gle/6qtCwcFhM5rbky1z8" target="_blank" class="contact-form-button">
-                    <span>Contact Us</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                </a>
-            </div>
-        </div>
-    </section>
+                <form id="contactForm" action="https://formspree.io/f/meoeyjkp" method="POST">
+                    <div class="contact-form-grid">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group form-full-width">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="Product Inquiry">Product Inquiry</option>
+                                <option value="Custom Development">Custom Development</option>
+                                <option value="FIX Protocol Consulting">FIX Protocol Consulting</option>
+                                <option value="Partnership">Partnership</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-full-width">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                </form>
+                <div id="thankYouMessage" class="thank-you-message">
+                    Thank you for your message! We'll get back to you soon.
+                </div>
+				</section>
 
     <!-- Call to Action -->
     <section class="cta">
